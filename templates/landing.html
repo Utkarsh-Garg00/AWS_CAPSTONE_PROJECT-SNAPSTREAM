@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SnapStream</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+
+<body class="m-0 p-0">
+
+<div class="relative min-h-screen w-full overflow-hidden">
+
+    <!-- BACKGROUND IMAGE -->
+    <img src="{{ url_for('static', filename='landing-bg.png') }}"
+         class="absolute inset-0 w-full h-full object-cover scale-105"
+         alt="SnapStream Landing">
+
+    <!-- DARK GRADIENT OVERLAY -->
+    <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-black/90"></div>
+
+    <!-- CENTER CONTENT -->
+    <div class="relative z-10 min-h-screen flex items-center justify-center">
+        <div class="text-center space-y-10">
+
+            <!-- TITLE -->
+            <h1 class="text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight text-white drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)]">
+                SnapStream
+            </h1>
+
+            <!-- SUBTLE TAGLINE (OPTIONAL BUT CLASSY) -->
+            <p class="text-zinc-300 text-lg tracking-wide">
+                Stream. Upload. Engage.
+            </p>
+
+            <!-- CTA BUTTON -->
+            <a href="/home"
+               class="inline-flex items-center justify-center px-14 py-4 rounded-full
+                      bg-indigo-500 hover:bg-indigo-600
+                      text-white text-lg font-medium
+                      shadow-[0_20px_40px_rgba(99,102,241,0.35)]
+                      hover:shadow-[0_25px_50px_rgba(99,102,241,0.55)]
+                      hover:-translate-y-0.5
+                      transition-all duration-300 ease-out">
+
+                Get Started
+            </a>
+
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual environment
+.venv/
+
+# Uploaded media
+static/videos/*
+static/thumbnails/*
+static/profile_photos/*
+
+# Logs / temp
+logs/
+data/
+
+# AWS keys
+*.pem
+
+# OS files
+.DS_Store
+Thumbs.db

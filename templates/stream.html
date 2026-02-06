@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="max-w-5xl mx-auto space-y-6">
+
+    <!-- VIDEO PLAYER -->
+    <div class="bg-black rounded-xl overflow-hidden shadow-lg">
+        <video
+            id="videoPlayer"
+            controls
+            autoplay
+            class="w-full aspect-video bg-black"
+        >
+            <source src="{{ url_for('static', filename='videos/' + video.filename) }}">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <!-- TITLE -->
+    <div>
+        <h1 class="text-xl font-semibold leading-snug">
+            {{ video.title }}
+        </h1>
+    </div>
+
+    <!-- META INFO -->
+    <div class="text-sm text-zinc-400 flex flex-wrap gap-2">
+        <span>{{ video.views }} views</span>
+        <span>•</span>
+        <span>{{ video.category }}</span>
+        {% if video.uploaded_at %}
+        <span>•</span>
+        <span>{{ video.uploaded_at }}</span>
+        {% endif %}
+    </div>
+
+    <!-- DESCRIPTION -->
+    {% if video.description %}
+    <div class="bg-zinc-800 rounded-xl p-4 text-sm text-zinc-300 leading-relaxed">
+        {{ video.description }}
+    </div>
+    {% endif %}
+
+  
+
+
+</div>
+
+<script>
+    const video = document.getElementById("videoPlayer");
+
+    // When video ends, go back to previous page
+    video.addEventListener("ended", function () {
+        window.history.back();
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SnapStream</title>
+<link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+
+
+   <body class="
+{% if session.get('theme', 'dark') == 'dark' %}
+    bg-zinc-900 text-white
+{% else %}
+    bg-white text-zinc-900 invert-ui
+{% endif %}
+">
+
+
+
+
+<!-- TOP NAVBAR -->
+<header class="flex items-center justify-between px-6 py-4 border-b border-zinc-800">
+    <div class="flex items-center gap-3">
+        <!-- <i class="fa-solid fa-video text-indigo-500 text-xl"></i> -->
+         <img src="{{ url_for('static', filename='images/logo.png') }}"
+         alt="SnapStream"
+         class="h-8 w-auto">
+        <span class="text-xl font-semibold">SnapStream</span>
+    </div>
+       <form action="/search" method="get" class="relative w-full max-w-md">
+
+    <input type="text"
+           name="q"
+           placeholder="Search videos"
+           class="w-full px-4 py-2 rounded-full
+                  bg-zinc-900 border border-zinc-700
+                  text-sm text-white
+                  focus:outline-none focus:ring-2 focus:ring-indigo-500">
+
+    <button type="submit"
+            class="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400">
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </button>
+
+</form>
+
+    <div class="flex items-center gap-4">
+        {% if session.get("user") %}
+            <span class="text-sm text-zinc-400">
+                <i class="fa fa-user"></i> {{ session.get("user") }}
+            </span>
+            <a href="/logout" class="text-sm hover:text-indigo-400">
+                <i class="fa fa-sign-out"></i> Logout
+            </a>
+        {% else %}
+        
+        {% endif %}
+    </div>
+</header>
+
+<!-- MAIN LAYOUT -->
+<div class="flex min-h-screen">
+
+    <!-- SIDEBAR -->
+    <!-- SIDEBAR -->
+
+    <aside class="w-56
+{% if session.get('theme', 'dark') == 'dark' %}
+    bg-zinc-800 text-white
+{% else %}
+    bg-zinc-100 text-zinc-900 border-r border-zinc-200
+{% endif %}
+">
+
+
+    <!-- SECTION -->
+    <div class="space-y-2 text-sm">
+        <p class="text-zinc-500 uppercase tracking-wide text-xs">
+            Navigation
+        </p>
+
+        <a href="/home"
+   class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-zinc-800 transition">
+    <i class="fa fa-home"></i>
+    Home
+</a>
+
+
+        
+
+        <a href="/dashboard"class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-zinc-800 transition">
+          
+
+            <i class="fa fa-user"></i>
+            Dashboard
+        </a>
+       
+
+    </div>
+
+    <!-- CREATOR -->
+    {% if session.get("role") == "creator" %}
+    <div class="space-y-2 text-sm">
+        <p class="text-zinc-500 uppercase tracking-wide text-xs">
+            Creator
+        </p>
+
+        <a href="/upload"
+           class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-zinc-800 transition">
+            <i class="fa fa-upload"></i>
+            Upload
+        </a>
+        <a href="/my-videos"
+   class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-zinc-800 transition">
+    <i class="fa-solid fa-video"></i>
+    My Videos
+</a>
+
+<a href="/creator-support"
+   class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-zinc-800 transition">
+    <i class="fa-solid fa-headset"></i>
+    Creator Support
+</a>
+    </div>
+    {% endif %}
+
+    <!-- INFO -->
+
+    <div class="space-y-2 text-sm">
+        <p class="text-zinc-500 uppercase tracking-wide text-xs">
+            Info
+        </p>
+        <a href="/profile"
+   class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-zinc-800 transition">
+    <i class="fa-solid fa-user"></i>
+    Profile
+</a>
+ <a href="/settings"
+   class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-zinc-800 transition">
+    <i class="fa-solid fa-gear"></i>
+    Settings
+</a>
+
+<a href="/help"
+   class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-zinc-800 transition">
+    <i class="fa-solid fa-circle-question"></i>
+    Help & Support
+</a>
+
+
+        <a href="/about"
+           class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-zinc-800 transition">
+            <i class="fa fa-circle-info"></i>
+            About
+        </a>
+    </div>
+
+</aside>
+
+
+    <!-- PAGE CONTENT -->
+    <main class="flex-1 p-6">
+        {% block content %}{% endblock %}
+    </main>
+
+</div>
+
+</body>
+</html>

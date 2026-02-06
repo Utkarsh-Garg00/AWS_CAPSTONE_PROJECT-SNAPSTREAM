@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% if videos %}
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+    {% for id, vid in videos.items() %}
+    <div class="bg-zinc-800 rounded-2xl overflow-hidden hover:bg-zinc-700 transition">
+
+        <!-- THUMBNAIL -->
+        <div class="relative">
+
+            <a href="/stream/{{ id }}">
+                {% if vid.thumbnail %}
+                <img src="{{ url_for('static', filename='thumbnails/' + vid.thumbnail) }}"
+                     class="w-full h-44 object-cover">
+                {% else %}
+                <div class="w-full h-44 bg-zinc-700 flex items-center justify-center">
+                    <i class="fa-solid fa-play text-3xl text-zinc-400"></i>
+                </div>
+                {% endif %}
+            </a>
+
+            <!-- SAVE / UNSAVE ICON -->
+            {% if id in saved_ids %}
+            <a href="/remove-saved/{{ id }}"
+               class="absolute top-2 right-2 bg-black/70 hover:bg-black/90
+                      p-2 rounded-full text-violet-400 z-10">
+                <i class="fa-solid fa-bookmark"></i>
+            </a>
+            {% else %}
+            <a href="/save-video/{{ id }}"
+               class="absolute top-2 right-2 bg-black/70 hover:bg-black/90
+                      p-2 rounded-full text-white z-10">
+                <i class="fa-regular fa-bookmark"></i>
+            </a>
+            {% endif %}
+
+        </div>
+
+        <!-- INFO -->
+        <a href="/stream/{{ id }}" class="block p-4 space-y-1">
+            <h3 class="font-medium leading-tight">
+                {{ vid.title }}
+            </h3>
+
+            <p class="text-sm text-zinc-400">
+                {{ vid.views }} views • {{ vid.category }}
+            </p>
+        </a>
+
+    </div>
+    {% endfor %}
+
+</div>
+{% else %}
+<p class="text-zinc-500 text-sm">No videos available.</p>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1 class="text-2xl font-semibold mb-6">My Videos</h1>
+
+{% if videos %}
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+    {% for id, video in videos.items() %}
+    <div class="rounded-xl overflow-hidden
+        {% if session.get('theme','dark') == 'dark' %}
+            bg-zinc-900 border border-zinc-800
+        {% else %}
+            bg-white border border-zinc-200
+        {% endif %}
+    ">
+
+        <!-- Thumbnail -->
+       
+        <!-- <img src="/{{ video.thumbnail.lstrip('/') }}"class="w-full h-40 object-cover">  -->
+         {% if video.thumbnail %}
+<img src="{{ url_for('static', filename='thumbnails/' + video.thumbnail) }}"
+     class="w-full h-44 object-cover">
+{% else %}
+<div class="w-full h-44 bg-zinc-700 flex items-center justify-center">
+    <i class="fa-solid fa-play text-3xl text-zinc-400"></i>
+</div>
+{% endif %}
+        <br>
+<span class="text-xs px-2 py-1 rounded-full bg-indigo-500/10 text-indigo-400">
+    {{ video.category }}
+</span>
+
+        <!-- Card Body -->
+        <div class="p-4 space-y-3">
+
+            <!-- Title -->
+            <h3 class="font-medium truncate">
+                {{ video.title }}
+            </h3>
+
+            <!-- Views -->
+            <p class="text-sm text-zinc-400">
+                {{ video.views }} views
+            </p>
+
+            <!-- EDIT FORM -->
+            <form method="POST" action="/edit-video/{{ id }}" class="space-y-2">
+
+                <input name="title"
+                       value="{{ video.title }}"
+                       class="w-full px-2 py-1 rounded-md
+                              bg-zinc-800 border border-zinc-700 text-sm text-white">
+
+                <textarea name="description"
+                          rows="2"
+                          class="w-full px-2 py-1 rounded-md
+                                 bg-zinc-800 border border-zinc-700 text-sm text-white">{{ video.description }}</textarea>
+
+                <button type="submit"
+                        class="w-full bg-indigo-500 hover:bg-indigo-600 transition
+                               text-white text-sm py-1.5 rounded-md">
+                    Update Details
+                </button>
+            </form>
+
+            <!-- DELETE -->
+            <a href="/delete-video/{{ id }}"
+               class="block text-center text-sm text-red-400 hover:text-red-500 mt-2">
+                Delete Video
+            </a>
+
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+{% else %}
+<p class="text-zinc-400">You haven't uploaded any videos yet.</p>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="max-w-4xl mx-auto space-y-8">
+
+    <!-- PROFILE HEADER -->
+    <div class="flex items-center gap-6 p-6 rounded-xl
+        {% if session.get('theme','dark') == 'dark' %}
+            bg-zinc-900 border border-zinc-800
+        {% else %}
+            bg-white border border-zinc-200
+        {% endif %}
+    ">
+
+        <!-- AVATAR -->
+        <div class="relative">
+
+    {% if users[username]["profile_photo"] %}
+        <img src="{{ url_for('static', filename='profile_photos/' + users[username]["profile_photo"]) }}"
+             class="h-20 w-20 rounded-full object-cover border-2 border-indigo-500">
+    {% else %}
+        <div class="h-20 w-20 rounded-full flex items-center justify-center text-3xl font-semibold
+             bg-indigo-500 text-white">
+            {{ username[0]|upper }}
+        </div>
+    {% endif %}
+
+    <!-- Upload Button -->
+    <form action="/upload-profile-photo" method="POST" enctype="multipart/form-data"
+          class="absolute -bottom-2 -right-2">
+        <label class="cursor-pointer bg-indigo-500 text-white p-2 rounded-full text-xs">
+            <i class="fa-solid fa-camera"></i>
+            <input type="file" name="profile_photo" class="hidden" onchange="this.form.submit()">
+        </label>
+    </form>
+
+</div>
+
+
+        <!-- USER INFO -->
+        <div>
+            <h1 class="text-2xl font-semibold">{{ username }}</h1>
+            <p class="text-sm text-zinc-400 capitalize">{{ role }}</p>
+        </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+
+        <div class="p-6 rounded-xl text-center
+            {% if session.get('theme','dark') == 'dark' %}
+                bg-zinc-900 border border-zinc-800
+            {% else %}
+                bg-white border border-zinc-200
+            {% endif %}
+        ">
+            <p class="text-3xl font-semibold">{{ total_uploads }}</p>
+            <p class="text-sm text-zinc-400">Videos Uploaded</p>
+        </div>
+
+        <div class="p-6 rounded-xl text-center
+            {% if session.get('theme','dark') == 'dark' %}
+                bg-zinc-900 border border-zinc-800
+            {% else %}
+                bg-white border border-zinc-200
+            {% endif %}
+        ">
+            <p class="text-3xl font-semibold">{{ total_watched }}</p>
+            <p class="text-sm text-zinc-400">Videos Watched</p>
+        </div>
+
+        <div class="p-6 rounded-xl text-center
+            {% if session.get('theme','dark') == 'dark' %}
+                bg-zinc-900 border border-zinc-800
+            {% else %}
+                bg-white border border-zinc-200
+            {% endif %}
+        ">
+            <p class="text-3xl font-semibold">
+                {% if role == "creator" %}
+                    Creator
+                {% else %}
+                    Viewer
+                {% endif %}
+            </p>
+            <p class="text-sm text-zinc-400">Account Type</p>
+        </div>
+
+    </div>
+
+    <!-- QUICK ACTIONS -->
+    <div class="flex gap-4 flex-wrap">
+
+        <a href="/settings"
+           class="px-6 py-2 rounded-lg bg-indigo-500 hover:bg-indigo-600 transition text-white">
+            Account Settings
+        </a>
+
+        {% if role == "creator" %}
+        <a href="/my-videos"
+           class="px-6 py-2 rounded-lg bg-zinc-700 hover:bg-zinc-600 transition">
+            Manage Videos
+        </a>
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

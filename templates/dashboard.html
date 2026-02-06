@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="space-y-12">
+    <!-- WATCH HISTORY -->
+    <section>
+        <h2 class="text-xl font-semibold mb-6">Watch History</h2>
+
+        {% if my_history %}
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            {% for item in my_history %}
+            <a href="/stream/{{ item.id }}"
+               class="bg-zinc-800 rounded-2xl overflow-hidden hover:bg-zinc-700 transition block">
+
+                <!-- Thumbnail -->
+                {% if item.thumbnail %}
+<img src="{{ url_for('static', filename='thumbnails/' + item.thumbnail) }}"
+     class="w-full h-44 object-cover">
+{% else %}
+<div class="w-full h-44 bg-zinc-700 flex items-center justify-center">
+    <i class="fa-solid fa-play text-3xl text-zinc-400"></i>
+</div>
+{% endif %}
+
+
+
+                <!-- Info -->
+                <div class="p-4 space-y-1">
+                    <h3 class="font-medium leading-tight">
+                        {{ item.title }}
+                    </h3>
+
+                    <p class="text-sm text-zinc-400">
+                        {{ item.views }} views • {{ item.category }}
+                    </p>
+
+                    <p class="text-xs text-zinc-500">
+                        Watched {{ item.watched_at }}
+                    </p>
+                      
+                </div>
+              
+
+
+            </a>
+            {% endfor %}
+
+        </div>
+        {% else %}
+        <p class="text-zinc-500 text-sm">No watch history yet.</p>
+        {% endif %}
+    </section>
+
+
+<!-- WATCH LATER -->
+<h2 class="text-xl font-semibold mt-10 mb-4">Watch Later</h2>
+
+{% if saved_videos %}
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+
+    {% for video in saved_videos %}
+    <div class="rounded-xl overflow-hidden
+        {% if session.get('theme','dark') == 'dark' %}
+            bg-zinc-900 border border-zinc-800
+        {% else %}
+            bg-white border border-zinc-200
+        {% endif %}
+    ">
+    
+
+        {% if video.thumbnail %}
+        <img src="{{ url_for('static', filename='thumbnails/' + video.thumbnail) }}"
+             class="w-full h-40 object-cover">
+        {% else %}
+        <div class="w-full h-40 bg-zinc-700 flex items-center justify-center">
+            <i class="fa-solid fa-play text-3xl text-zinc-400"></i>
+        </div>
+        {% endif %}
+
+        <div class="p-4 space-y-2">
+            <h3 class="font-medium truncate">{{ video.title }}</h3>
+
+            <a href="/stream/{{ video.id }}"
+               class="text-indigo-400 text-sm">
+                Watch
+            </a>
+
+            <a href="/remove-saved/{{ video.id }}"
+               class="block text-red-400 text-sm mt-2">
+                Remove
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+{% else %}
+<p class="text-zinc-400">No videos saved for later.</p>
+{% endif %}
+
+
+
+</div>
+
+{% endblock %}
