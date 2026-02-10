@@ -20,7 +20,7 @@ users_table = dynamodb.Table("SnapUsers")
 videos_table = dynamodb.Table("SnapVideos")
 feedback_table = dynamodb.Table("SnapFeedback")
 
-SNS_TOPIC_ARN = "arn:aws:sns:us-east-1:XXXXXXXXXXXX:snapstream-events"
+SNS_TOPIC_ARN = "arn:aws:sns:us-east-1:879381270777:snapstream-events"
 
 # ---------------- FILE STORAGE ----------------
 VIDEO_FOLDER = "static/videos"
