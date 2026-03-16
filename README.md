@@ -59,10 +59,10 @@ Run SnapStream Locally
 1. Clone the repository
    
 ```
-git clone https://github.com/Utkarsh-Garg00/snapstream.git
+git clone https://github.com/Utkarsh-Garg00/AWS_CAPSTONE_PROJECT-SNAPSTREAM.git
 
 
-cd snapstream
+cd AWS_CAPSTONE_PROJECT-SNAPSTREAM
 ```
 2. Create virtual environment (optional but recommended)
 
