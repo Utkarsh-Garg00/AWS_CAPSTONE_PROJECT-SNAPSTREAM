@@ -54,8 +54,50 @@ Media files (videos, thumbnails, profile photos) are stored locally on the EC2 i
 
 ---
 
-## 🧪 Local Setup
+Run SnapStream Locally
+---
+1. Clone the repository
+   
+```
+git clone https://github.com/Utkarsh-Garg00/snapstream.git
 
-```bash
+
+cd snapstream
+```
+2. Create virtual environment (optional but recommended)
+
+Windows
+```
+python -m venv .venv
+.venv\Scripts\activate
+```
+Linux / Mac
+```
+python3 -m venv .venv
+source .venv/bin/activate
+```
+3. Install dependencies
+```
 pip install -r requirements.txt
+```
+4. Run the application
+ ```
 python app.py
+```
+6. Open in browser
+http://127.0.0.1:5000
+---
+Run AWS Version
+---
+
+After configuring AWS services (EC2, DynamoDB, SNS):
+```
+python app_aws.py
+```
+Requirements
+
+Python 3.8+
+
+pip
+
+Git
